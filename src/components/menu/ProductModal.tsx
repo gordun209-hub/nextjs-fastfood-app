@@ -19,7 +19,7 @@ import {
 } from '@services/api'
 import { useForm } from 'react-hook-form'
 
-const CategoryModal = ({
+const Productmodal = ({
   isOpen,
   onClose,
 }: {
@@ -37,11 +37,13 @@ const CategoryModal = ({
   const [createProduct] = useCreateProductMutation()
   const { register, handleSubmit } = useForm<Product>()
   const onSubmit = (data: Product) => {
-    console.log(data)
-    const { price } = data
-    console.log(typeof price)
-    createProduct({ ...data })
+    const { price, name, categoryName } = { data }.data
+    console.log(price, name, categoryName, 'laaaaa')
+    const price2 = Number(price)
+    createProduct({ name, price2, categoryName })
   }
+
+  // createProduct({ Number(price), ...data })
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -62,17 +64,13 @@ const CategoryModal = ({
                   {categories &&
                     flattencategories?.map((category: string) => {
                       return (
-                        <option key={category} value={category}>
+                        <option {...register('categoryName')} key={category}>
                           <label>{category}</label>
                         </option>
                       )
                     })}
                   )
                 </Select>
-                <Input
-                  {...register('description')}
-                  placeholder="Product's description"
-                />
               </Stack>
               <ModalFooter>
                 <Button colorScheme="gray" mr={3} onClick={onClose}>
@@ -90,4 +88,4 @@ const CategoryModal = ({
   )
 }
 
-export default CategoryModal
+export default Productmodal

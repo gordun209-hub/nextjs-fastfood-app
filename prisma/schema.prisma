@@ -25,47 +25,25 @@ model User {
 model Company {
   id         Int        @id @default(autoincrement())
   name       String
-  region     String?
-  currency   String?
-  categories Category[]
   user       User       @relation(fields: [userId], references: [id])
   userId     Int        @unique
-  Product    Product[]
+  categories Category[]
+  products   Product[]
 }
 
 model Category {
-  id          Int       @id @default(autoincrement())
-  description String?
-  name        String
-  products    Product[]
-  company     Company[]
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  companies Company[]
+  Product   Product[]
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
-  price       Int
-  name        String
-  description String
-  ingredients String[]
-  company     Company  @relation(fields: [companyId], references: [id])
-  companyId   Int
-  category    Category @relation(fields: [categoryId], references: [id])
-  categoryId  Int
-  menu        Menu?    @relation(fields: [menuId], references: [id])
-  menuId      Int?
-}
-
-model Menu {
-  id          Int       @id @default(autoincrement())
-  price       Int
-  name        String
-  description String
-  items       Product[]
-  size        Size      @default(Medium)
-}
-
-enum Size {
-  Big
-  Medium
-  Small
+  id           Int      @id @default(autoincrement())
+  price        Int
+  name         String
+  category     Category @relation(fields: [categoryName], references: [name])
+  categoryName String
+  Company      Company? @relation(fields: [companyId], references: [id])
+  companyId    Int?
 }

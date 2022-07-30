@@ -38,14 +38,7 @@ const CategoryModal = ({
           <form onSubmit={handleSubmit(onSubmit)}>
             <ModalBody>
               <Stack spacing={3}>
-                <Input
-                  {...register('description')}
-                  placeholder="Category name"
-                />
-                <Input
-                  {...register('name')}
-                  placeholder="Category's description"
-                />
+                <Input {...register('name')} placeholder="Category name" />
               </Stack>
             </ModalBody>
             <ModalFooter>

@@ -12,60 +12,36 @@ Table User {
 Table Company {
   id Int [pk, increment]
   name String [not null]
-  region String
-  currency String
-  categories Category [not null]
   user User [not null]
   userId Int [unique, not null]
-  Product Product [not null]
+  categories Category [not null]
+  products Product [not null]
 }
 
 Table Category {
   id Int [pk, increment]
-  description String
-  name String [not null]
-  products Product [not null]
-  company Company [not null]
+  name String [unique, not null]
+  companies Company [not null]
+  Product Product [not null]
 }
 
 Table Product {
   id Int [pk, increment]
   price Int [not null]
   name String [not null]
-  description String [not null]
-  ingredients String[] [not null]
-  company Company [not null]
-  companyId Int [not null]
   category Category [not null]
-  categoryId Int [not null]
-  menu Menu
-  menuId Int
-}
-
-Table Menu {
-  id Int [pk, increment]
-  price Int [not null]
-  name String [not null]
-  description String [not null]
-  items Product [not null]
-  size Size [not null, default: 'Medium']
+  categoryName String [not null]
+  Company Company
+  companyId Int
 }
 
 Table CategoryToCompany {
   categoriesId Int [ref: > Category.id]
-  companyId Int [ref: > Company.id]
-}
-
-Enum Size {
-  Big
-  Medium
-  Small
+  companiesId Int [ref: > Company.id]
 }
 
 Ref: Company.userId - User.id
 
+Ref: Product.categoryName > Category.name
+
 Ref: Product.companyId > Company.id
-
-Ref: Product.categoryId > Category.id
-
-Ref: Product.menuId > Menu.id

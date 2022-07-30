@@ -32,7 +32,7 @@ export const validateRoute = (
       }
       return handler(req, res, user)
     }
-    res.status(401)
+    res.status(402)
     res.json({ error: 'Not Authorized' })
   }
 }

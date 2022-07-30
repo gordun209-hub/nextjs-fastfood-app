@@ -1,8 +1,9 @@
-import prisma from '@utils/db'
 import bcrypt from 'bcrypt'
 import cookie from 'cookie'
 import jwt from 'jsonwebtoken'
 import type { NextApiRequest, NextApiResponse } from 'next'
+
+import prisma from '../../../../lib/prisma'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const { email, password } = req.body
